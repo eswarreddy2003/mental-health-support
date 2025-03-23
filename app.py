@@ -66,7 +66,7 @@ def preprocess_text(text):
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
-app.secret_key = "your_secret_key"  # Required for session tracking
+# app.secret_key = "your_secret_key"  # Required for session tracking
 
 # Load the dataset
 file_path ="data.csv"
