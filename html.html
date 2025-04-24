@@ -3,175 +3,370 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mental Health Support</title>
+  <title>MindCare | Mental Health Support</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0fdf4;
+    /* Base Styles */
+    :root {
+      --primary: #6a1b9a;
+      --primary-dark: #4a148c;
+      --primary-light: #9c4dcc;
+      --secondary: #4CAF50;
+      --secondary-dark: #388e3c;
+      --accent: #ffd54f;
+      --white: #ffffff;
+      --light-bg: #f5f5f5;
+      --text: #333333;
+      --text-light: #555555;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      padding-top: 70px; /* Add padding to body to account for fixed nav */
     }
-    nav {
-    background-color: #4caf50;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-links {
-    display: flex;
-    margin-left: 20px; /* Added some left margin */
-  }
-  
-  nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .chatbot-btn {
-    background-color: #2575fc;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 20px; /* Added some right margin */
-  }
-  
-    .chatbot-btn:hover {
-      background-color: #1a5cb8;
-    }
-    .section {
-      padding: 40px 20px;
-      text-align: center;
-      display: none; /* Hide sections by default */
-    }
-    .about {
-      background-color: #c8e6c9;
-    }
-    .message-box {
-      background-color: #fff3e0;
-      padding: 35px;
-      margin: 40px auto;
-      width: 60%;
-      border-radius: 25px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      border: 3px solid #ffb74d;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .message-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    }
-    .message-box h3 {
-      color: #ef6c00;
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-    }
-    .message-box p {
-      color: #5d4037;
-      font-size: 1.3rem;
-      line-height: 1.8;
-    }
-    .floating-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-    .floating-box {
-      background-color: #ffffff;
-      width: 220px;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      transition: transform 0.3s ease;
-      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      cursor: pointer;
-    }
-    .floating-box:hover {
-      transform: translateY(-10px);
-    }
-    .floating-box h4 {
-      color: #00796b;
-    }
-    .questionnaire {
-      display: none;
-      background-color: #ffffff;
-      padding: 30px;
-      margin: 20px auto;
-      width: 70%;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      text-align: left;
-    }
-    .questionnaire h3 {
-      color: #00796b;
-    }
-    .question {
-      margin-bottom: 20px;
-    }
-    .question p {
-      font-weight: bold;
-    }
-    .options {
-      margin-top: 10px;
-    }
-    .options label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    .submit-button {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .submit-button button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    .submit-button button:hover {
-      background-color: #45a049;
-    }
-    .test-help {
-      background-color: #e8f5e9;
-      padding: 30px;
-      margin: 40px auto;
-      width: 80%;
-      border-radius: 20px;
-      text-align: center;
-    }
-    .test-help h3 {
-      color: #2e7d32;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    .test-help p {
-      color: #1b5e20;
-      font-size: 1.1rem;
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+      color: var(--text);
       line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 80px; /* Added for sticky nav */
     }
-    /* Modal styles */
+    
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, #7e57c2, #ba68c8);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      animation: fadeInDown 0.8s ease-out;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      animation: bounceIn 1s ease;
+    }
+    
+    /* Sticky Navigation */
+    .sticky-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(135deg, #7e57c2, #ba68c8);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: none;
+      animation: fadeInDown 0.5s ease-out;
+    }
+    
+    .sticky-nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .sticky-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    
+    .sticky-nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .sticky-nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+    
+    .sticky-nav-links a:hover {
+      color: var(--accent);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .main-nav {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .main-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+    
+    .main-nav a:hover {
+      color: var(--accent);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .chatbot-link {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .chatbot-link:hover {
+      transform: translateY(-3px);
+    }
+    
+    .chatbot-icon {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+    
+    .chatbot-text {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .chatbot-text span {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+    
+    /* Quick Navigation */
+    .quick-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      flex-wrap: wrap;
+    }
+    
+    .quick-nav button {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .quick-nav button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Content Sections */
+    .section {
+      padding: 3rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: all 0.5s ease;
+    }
+    
+    .about-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      margin-bottom: 3rem;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    
+    .section-title {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .section-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Message Box */
+    .message-box {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 16px;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+      border-left: 6px solid var(--primary);
+    }
+    
+    .message-box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .message-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    /* Assessment Cards */
+    .assessments {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .assessment-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+      text-align: center;
+      border-top: 4px solid var(--primary-light);
+    }
+    
+    .assessment-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .assessment-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .assessment-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .assessment-desc {
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+    
+    /* Test Info Section */
+ .info-section {
+      display: none;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: 900px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in-out;
+      position: relative;
+    }
+    
+    .info-section.active {
+      display: block;
+    }
+    
+    .info-title {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      padding-right: 2rem;
+    }
+    
+    .info-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-list {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+    
+    .info-list li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .close-x {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: none;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .close-x:hover {
+      color: var(--primary);
+      background-color: rgba(0, 0, 0, 0.05);
+      transform: rotate(90deg);
+    }
+    
+    /* Modals */
     .modal {
       display: none;
       position: fixed;
@@ -180,356 +375,731 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
       justify-content: center;
       align-items: center;
+      padding: 1rem;
     }
+    
     .modal-content {
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      width: 300px;
+      background-color: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalFadeIn 0.4s ease-out;
+      position: relative;
     }
+    
+    .modal-title {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .question-item {
+      background-color: var(--light-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+    
+    .response-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    
+    .response-options label {
+      background: var(--white);
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      border: 1px solid #e0e0e0;
+      flex-grow: 1;
+      text-align: center;
+    }
+    
+    .response-options label:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .response-options input[type="radio"]:checked + label {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+    
+    .submit-btn {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 2rem auto 0;
+      width: 100%;
+      max-width: 200px;
+    }
+    
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
     .modal-buttons {
-      margin-top: 20px;
       display: flex;
       justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
     }
-    .modal-buttons button {
-      margin: 0 5px;
-      padding: 10px 20px;
+    
+    .modal-btn {
       border: none;
-      border-radius: 5px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
       font-size: 1rem;
-      transition: background-color 0.3s ease;
+      min-width: 120px;
     }
-    .modal-buttons button.ok {
-      background-color: #4caf50;
-      color: white;
+    
+    .modal-btn.ok {
+      background-color: #e0e0e0;
+      color: var(--text);
     }
-    .modal-buttons button.ok:hover {
-      background-color: #45a049;
+    
+    .modal-btn.help {
+      background-color: var(--secondary);
+      color: var(--white);
     }
-    .modal-buttons button.chatbot {
-      background-color: #2575fc;
-      color: white;
+    
+    .modal-btn.ok:hover {
+      background-color: #d0d0d0;
     }
-    .modal-buttons button.chatbot:hover {
-      background-color: #1a5cb8;
+    
+    .modal-btn.help:hover {
+      background-color: var(--secondary-dark);
+    }
+    
+    .result-message {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+      
+      .header-content {
+        padding-top: 1rem;
+      }
+      
+      .chatbot-link {
+        position: static;
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      
+      .assessments {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .quick-nav button {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .response-options {
+        flex-direction: column;
+      }
+      
+      .info-section {
+        padding: 1.5rem;
+      }
+      
+      .sticky-nav-links {
+        gap: 0.8rem;
+      }
+      
+      .sticky-nav-links a {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
+</head>
+<body>
+  <!-- Sticky Navigation -->
+  <nav class="sticky-nav">
+    <div class="sticky-nav-content">
+      <div class="sticky-logo">🧠 MindCare</div>
+      <div class="sticky-nav-links">
+        <a href="#home" onclick="scrollToTop()">Home</a>
+        <a href="#about" onclick="scrollToSection('about')">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header Section -->
+  <header id="home">
+    <div class="header-content">
+      <h1 class="logo">🧠 MindCare</h1>
+      <nav class="main-nav">
+        <a href="#home" onclick="scrollToTop()">Home</a>
+        <a href="#about" onclick="scrollToSection('about')">About</a>
+      </nav>
+      <a href="index.html" class="chatbot-link">
+        <span class="chatbot-icon">🤖</span>
+        <span class="chatbot-text">Need to talk? <span>Chat with us</span></span>
+    </a>
+    </div>
+  </header>
+
+  <!-- Quick Navigation -->
+  <div class="quick-nav">
+    <button onclick="showInfo('about')">
+      <span>💡</span> About Us
+    </button>
+    <button onclick="showInfo('tests')">
+      <span>🧠</span> Mental Health Tests
+    </button>
+    <button onclick="showInfo('why-tests')">
+      <span>📘</span> Why These Tests?
+    </button>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="about-card">
+      <h2 class="section-title">✨ About Mental Health support</h2>
+      <p class="section-text">
+        At <strong>Mental Health Support</strong>, we're dedicated to supporting your mental wellness journey with compassion and expertise.
+        Our platform provides safe, judgment-free tools to help you understand and improve your emotional well-being.
+        Whether you're feeling anxious, stressed, or just need someone to talk to, we're here for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Information Sections (hidden by default) -->
+    <div id="about-info" class="info-section">
+    <button class="close-x" onclick="hideInfo('about')">&times;</button>
+    <h2 class="info-title">About Our Platform</h2>
+    <div class="info-content">
+      <p>Welcome to Mental Health Support, a safe space dedicated to your emotional well-being. Our mission is to provide accessible, compassionate support for anyone navigating mental health challenges.</p>
+      
+      <p>We believe that mental health care should be:</p>
+      <ul class="info-list">
+        <li><strong>Accessible:</strong> Available to everyone, regardless of location or financial situation</li>
+        <li><strong>Compassionate:</strong> Judgment-free support from people who genuinely care</li>
+        <li><strong>Evidence-based:</strong> Tools and resources grounded in scientific research</li>
+        <li><strong>Empowering:</strong> Helping you build skills to manage your mental health</li>
+      </ul>
+      
+      <p>Our team includes mental health professionals, technologists, and advocates who are passionate about breaking down barriers to mental health care. While we're not a substitute for professional treatment, we aim to provide valuable tools and resources to support your journey.</p>
+    </div>
+  </div>
+
+  <div id="tests-info" class="info-section">
+    <button class="close-x" onclick="hideInfo('tests')">&times;</button>
+    <h2 class="info-title">About Our Mental Health Tests</h2>
+    <div class="info-content">
+      <p>Our mental health assessments are designed to help you better understand your emotional well-being. These tools can provide valuable insights into potential areas of concern.</p>
+      
+      <h3>Available Assessments:</h3>
+      <ul class="info-list">
+        <li><strong>Anxiety:</strong> Measures symptoms of excessive worry, nervousness, and panic</li>
+        <li><strong>Depression:</strong> Evaluates persistent sadness, hopelessness, and loss of interest</li>
+        <li><strong>Stress:</strong> Assesses your current stress levels and coping abilities</li>
+        <li><strong>PTSD:</strong> Screens for symptoms related to traumatic experiences</li>
+        <li><strong>Bipolar:</strong> Examines patterns of mood swings and energy levels</li>
+        <li><strong>OCD:</strong> Evaluates obsessive thoughts and compulsive behaviors</li>
+        <li><strong>ADHD:</strong> Assesses attention difficulties and impulsivity</li>
+        <li><strong>Eating Disorders:</strong> Screens for unhealthy relationships with food and body image</li>
+      </ul>
+      
+      <p>Each assessment takes just a few minutes to complete. Your responses are completely confidential and are not stored on our servers.</p>
+    </div>
+  </div>
+
+  <div id="why-tests-info" class="info-section">
+    <button class="close-x" onclick="hideInfo('why-tests')">&times;</button>
+    <h2 class="info-title">Why Take These Tests?</h2>
+    <div class="info-content">
+      <p>Mental health self-assessments can be valuable tools for several reasons:</p>
+      
+      <h3>Benefits of Self-Assessment:</h3>
+      <ul class="info-list">
+        <li><strong>Increased Awareness:</strong> Helps you recognize patterns in your thoughts, feelings, and behaviors</li>
+        <li><strong>Early Identification:</strong> Can highlight potential issues before they become more severe</li>
+        <li><strong>Reduced Stigma:</strong> Normalizes conversations about mental health</li>
+        <li><strong>Informed Decisions:</strong> Provides information to help you decide if professional help might be beneficial</li>
+        <li><strong>Tracking Progress:</strong> Can be used to monitor changes in your symptoms over time</li>
+      </ul>
+      
+      <h3>Important Notes:</h3>
+      <ul class="info-list">
+        <li>These tests are <strong>not diagnostic tools</strong> - only a qualified professional can provide a diagnosis</li>
+        <li>They are designed for adults (age 18+)</li>
+        <li>Results should be considered alongside other factors in your life</li>
+        <li>If you're in crisis, please contact emergency services or a crisis hotline immediately</li>
+      </ul>
+      
+      <p>Remember that everyone's mental health journey is unique. These tools are meant to provide insight and guidance, not definitive answers.</p>
+    </div>
+  </div>
+  <!-- Encouragement Message -->
+  <div class="message-box">
+    <h3 class="message-title">You're Not Alone</h3>
+    <p>Reaching out for support is a sign of strength, not weakness. Whatever you're going through, we're here to help you navigate it with care and understanding. Your mental health matters.</p>
+  </div>
+
+  <!-- Mental Health Assessments -->
+  <section id="assessments" class="section">
+    <h2 class="section-title">Mental Health Assessments</h2>
+    <p class="section-text">Take a quick self-assessment to better understand your mental health. These tools are designed to provide insight, not diagnosis.</p>
+    
+    <div class="assessments">
+      <div class="assessment-card" onclick="displayQuestionnaire('anxiety')">
+        <div class="assessment-icon">😰</div>
+        <h3 class="assessment-title">Anxiety</h3>
+        <p class="assessment-desc">Assess feelings of worry, fear, and panic</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('depression')">
+        <div class="assessment-icon">😞</div>
+        <h3 class="assessment-title">Depression</h3>
+        <p class="assessment-desc">Evaluate persistent sadness and hopelessness</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('stress')">
+        <div class="assessment-icon">😫</div>
+        <h3 class="assessment-title">Stress</h3>
+        <p class="assessment-desc">Measure your current stress levels</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('ptsd')">
+        <div class="assessment-icon">😣</div>
+        <h3 class="assessment-title">PTSD</h3>
+        <p class="assessment-desc">Assess trauma-related symptoms</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('bipolar')">
+        <div class="assessment-icon">😃😞</div>
+        <h3 class="assessment-title">Bipolar</h3>
+        <p class="assessment-desc">Evaluate mood swings and energy levels</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('ocd')">
+        <div class="assessment-icon">🔁</div>
+        <h3 class="assessment-title">OCD</h3>
+        <p class="assessment-desc">Assess obsessive thoughts and behaviors</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('adhd')">
+        <div class="assessment-icon">🤯</div>
+        <h3 class="assessment-title">ADHD</h3>
+        <p class="assessment-desc">Evaluate focus and impulsivity</p>
+      </div>
+      
+      <div class="assessment-card" onclick="displayQuestionnaire('eating')">
+        <div class="assessment-icon">🍽</div>
+        <h3 class="assessment-title">Eating Disorders</h3>
+        <p class="assessment-desc">Assess relationship with food and body image</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test Information -->
+  <div id="test-info" class="test-info">
+    <h2 class="section-title">About These Assessments</h2>
+    <p class="section-text">
+      These self-assessments are designed to help you reflect on your mental well-being and identify areas where you might need support.
+      They are not diagnostic tools but can provide valuable insight into your emotional state. If your results suggest you may be struggling,
+      we encourage you to reach out to a mental health professional for further evaluation.
+    </p>
+  </div>
+
+  <!-- Questionnaire Modal -->
+  <div id="question-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-x" onclick="closeModal('question-modal')">&times;</button>
+      <h3 id="question-title" class="modal-title">Assessment</h3>
+      <div id="question-list"></div>
+      <button id="submit-btn" class="submit-btn">Submit Assessment</button>
+    </div>
+  </div>
+
+  <!-- Results Modal -->
+  <div id="result-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title">Your Results</h3>
+      <p id="modal-message" class="result-message"></p>
+      <div class="modal-buttons">
+        <button class="modal-btn ok">OK</button>
+        <button id="get-help-btn" class="modal-btn help" onclick="window.location.href='index.html'">Chat Now</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Show the home content by default
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('home-content').style.display = 'block';
+    // Show sticky nav on scroll
+    window.addEventListener('scroll', function() {
+      const stickyNav = document.querySelector('.sticky-nav');
+      if (window.scrollY > 100) {
+        stickyNav.style.display = 'block';
+      } else {
+        stickyNav.style.display = 'none';
+      }
     });
 
-    function showSection(sectionId) {
-      // Hide all sections
-      document.querySelectorAll('.section').forEach(section => {
-        section.style.display = 'none';
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Scroll to section with animation
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth'
+        });
+        
+        // Add animation class
+        section.classList.add('highlight');
+        setTimeout(() => {
+          section.classList.remove('highlight');
+        }, 1000);
+      }
+    }
+
+    // Close modal function
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Mental Health Questionnaires
+    const mentalHealthQuestionnaires = {
+      anxiety: [
+        "In the last 2 weeks, how often have you felt nervous, anxious, or on edge?",
+        "How often have you been unable to stop or control worrying?",
+        "How often have you felt afraid as if something awful might happen?",
+        "How often have you had difficulty relaxing?",
+        "How often have you felt so restless that it's hard to sit still?"
+      ],
+      depression: [
+        "How often have you felt down, depressed, or hopeless?",
+        "How often have you had little interest or pleasure in doing things?",
+        "How often have you had trouble falling or staying asleep, or sleeping too much?",
+        "How often have you felt tired or had little energy?",
+        "How often have you had thoughts that you would be better off dead?"
+      ],
+      stress: [
+        "How often do you feel that you're unable to control important things in your life?",
+        "How often do you feel nervous or stressed?",
+        "How often do you feel confident about your ability to handle personal problems?",
+        "How often do you feel that things are going your way?",
+        "How often do you feel difficulties are piling up so high you can't overcome them?"
+      ],
+      ptsd: [
+        "Have you had nightmares about the event(s) or thought about the event(s) when you didn't want to?",
+        "Have you tried hard not to think about the event(s) or went out of your way to avoid situations that reminded you of the event(s)?",
+        "Have you been constantly on guard, watchful, or easily startled?",
+        "Have you felt numb or detached from people, activities, or your surroundings?",
+        "Have you felt guilty or unable to stop blaming yourself or others for the event(s) or any problems the event(s) may have caused?"
+      ],
+      bipolar: [
+        "Have you had periods where you felt much more excited and full of energy than usual?",
+        "During these periods, did you need much less sleep than usual?",
+        "During these periods, did you talk much more than usual or feel pressure to keep talking?",
+        "During these periods, did your thoughts race or go much faster than usual?",
+        "Have these periods of high energy caused problems in your life?"
+      ],
+      ocd: [
+        "Do you have repeated thoughts, urges, or mental images that cause you anxiety?",
+        "Do you feel driven to perform certain behaviors or mental acts in response to an obsession?",
+        "Do you spend more than 1 hour a day on these thoughts or behaviors?",
+        "Do these thoughts or behaviors cause significant distress or interfere with your daily life?",
+        "Have you tried unsuccessfully to ignore or control these thoughts or behaviors?"
+      ],
+      adhd: [
+        "How often do you have trouble wrapping up the final details of a project?",
+        "How often do you have difficulty getting things in order when doing a task?",
+        "How often do you have problems remembering appointments or obligations?",
+        "When you have a task that requires a lot of thought, how often do you avoid it?",
+        "How often do you fidget or squirm with your hands or feet when sitting for a long time?"
+      ],
+      eating: [
+        "Do you make yourself sick because you feel uncomfortably full?",
+        "Do you worry you have lost control over how much you eat?",
+        "Have you recently lost more than 14 pounds in a 3-month period?",
+        "Do you believe yourself to be fat when others say you are too thin?",
+        "Would you say that food dominates your life?"
+      ]
+    };
+
+    // Show information section
+    function showInfo(section) {
+      // Hide all info sections first
+      document.querySelectorAll('.info-section').forEach(el => {
+        el.classList.remove('active');
       });
       
       // Show the selected section
-      document.getElementById(sectionId).style.display = 'block';
+      document.getElementById(`${section}-info`).classList.add('active');
       
-      // Smooth scroll to the section
-      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+      // Scroll to the section
+      document.getElementById(`${section}-info`).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+    
+    // Hide information section
+    function hideInfo(section) {
+      document.getElementById(`${section}-info`).classList.remove('active');
     }
 
-    function showQuestions(condition) {
-      document.querySelectorAll('.questionnaire').forEach(q => q.style.display = 'none');
-      document.getElementById(`${condition}-questions`).style.display = 'block';
+    // Display questionnaire
+    function displayQuestionnaire(condition) {
+      if (!mentalHealthQuestionnaires[condition]) {
+        console.error("Invalid condition specified:", condition);
+        return;
+      }
+
+      const modal = document.getElementById("question-modal");
+      const title = document.getElementById("question-title");
+      const questionContainer = document.getElementById("question-list");
+
+      // Set title with proper capitalization
+      title.textContent = `${condition.charAt(0).toUpperCase() + condition.slice(1)} Assessment`;
+
+      // Clear previous questions
+      questionContainer.innerHTML = "";
+
+      // Create question elements
+      mentalHealthQuestionnaires[condition].forEach((questionText, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.className = "question-item";
+        questionElement.innerHTML = `
+          <p class="question-text">${index + 1}. ${questionText}</p>
+          <div class="response-options">
+            <input type="radio" id="q${index}-never" name="q${index}" value="never">
+            <label for="q${index}-never">Never</label>
+            
+            <input type="radio" id="q${index}-rarely" name="q${index}" value="rarely">
+            <label for="q${index}-rarely">Rarely</label>
+            
+            <input type="radio" id="q${index}-sometimes" name="q${index}" value="sometimes">
+            <label for="q${index}-sometimes">Sometimes</label>
+            
+            <input type="radio" id="q${index}-often" name="q${index}" value="often">
+            <label for="q${index}-often">Often</label>
+            
+            <input type="radio" id="q${index}-always" name="q${index}" value="always">
+            <label for="q${index}-always">Always</label>
+          </div>
+        `;
+        questionContainer.appendChild(questionElement);
+      });
+
+      // Set up submit handler
+      document.getElementById("submit-btn").onclick = () => evaluateQuestionnaire(condition);
+
+      // Show modal
+      modal.style.display = "flex";
     }
 
-    function submitTest(condition) {
-      const questions = document.querySelectorAll(`#${condition}-questions .question`);
-      let score = 0;
+    // Evaluate questionnaire responses
+    function evaluateQuestionnaire(condition) {
+      const questions = document.querySelectorAll(".question-item");
+      let totalScore = 0;
+      let answeredAll = true;
+      const maxScore = questions.length * 4; // 4 points per question (never=0 to always=4)
+
       questions.forEach((question, index) => {
-        const selectedOption = question.querySelector('input[type="radio"]:checked');
-        if (selectedOption) {
-          if (selectedOption.value === 'mild') score += 1;
-          else if (selectedOption.value === 'moderate') score += 2;
-          else if (selectedOption.value === 'severe') score += 3;
+        const selectedOption = question.querySelector("input[type='radio']:checked");
+        
+        if (!selectedOption) {
+          answeredAll = false;
+          highlightUnansweredQuestion(question);
+          return;
+        }
+
+        // Calculate score based on response
+        switch(selectedOption.value) {
+          case "never": totalScore += 0; break;
+          case "rarely": totalScore += 1; break;
+          case "sometimes": totalScore += 2; break;
+          case "often": totalScore += 3; break;
+          case "always": totalScore += 4; break;
         }
       });
 
-      let resultMessage = '';
-      if (score <= 5) {
-        resultMessage = 'Your symptoms are mild. Consider self-care strategies and monitor your symptoms.';
-      } else if (score <= 10) {
-        resultMessage = 'Your symptoms are moderate. It may be helpful to seek support from a therapist or counselor.';
+      if (!answeredAll) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
+
+      showResults(condition, totalScore, maxScore);
+    }
+
+    // Highlight unanswered questions
+    function highlightUnansweredQuestion(questionElement) {
+      questionElement.style.animation = "shake 0.5s";
+      questionElement.style.backgroundColor = "#ffe6e6";
+      setTimeout(() => {
+        questionElement.style.backgroundColor = "";
+        questionElement.style.animation = "";
+      }, 2000);
+    }
+
+    // Show assessment results
+    function showResults(condition, score, maxScore) {
+      const percentage = (score / maxScore) * 100;
+      
+      let severity, recommendation;
+      
+      if (percentage <= 25) {
+        severity = "minimal";
+        recommendation = `Your responses suggest minimal ${condition} symptoms. This is great! Continue practicing self-care and monitor your well-being.`;
+      } else if (percentage <= 50) {
+        severity = "mild";
+        recommendation = `Your responses indicate mild ${condition} symptoms. Consider implementing coping strategies and monitoring your symptoms. If they persist or worsen, professional support may be helpful.`;
+      } else if (percentage <= 75) {
+        severity = "moderate";
+        recommendation = `Your responses suggest moderate ${condition} symptoms. These may be impacting your daily life. Professional support could help you develop effective coping strategies.`;
       } else {
-        resultMessage = 'Your symptoms are severe. Please reach out to a mental health professional for immediate support.';
+        severity = "severe";
+        recommendation = `Your responses indicate significant ${condition} symptoms that are likely affecting your quality of life. We strongly recommend seeking professional help to address these concerns.`;
       }
 
-      // Show modal with result message
-      const modal = document.getElementById('result-modal');
-      const modalMessage = document.getElementById('modal-message');
-      modalMessage.innerText = resultMessage;
-      modal.style.display = 'flex';
+      // Hide question modal
+      document.getElementById("question-modal").style.display = "none";
+
+      // Show results modal
+      const resultModal = document.getElementById("result-modal");
+      document.getElementById("modal-message").textContent = recommendation;
+      
+      // Set up help button
+      document.getElementById("get-help-btn").onclick = () => {
+        window.location.href = "index.html";
+        resultModal.style.display = "none";
+      };
+      
+      // Set up OK button
+      document.querySelector(".modal-btn.ok").onclick = () => {
+        resultModal.style.display = "none";
+      };
+      
+      resultModal.style.display = "flex";
     }
 
-    // Close modal when clicking outside of it
-    window.onclick = function(event) {
-      const modal = document.getElementById('result-modal');
-      if (event.target === modal) {
-        modal.style.display = 'none';
+    // Close modals when clicking outside
+    window.addEventListener("click", (event) => {
+      if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none";
       }
-    };
+    });
 
-    // Redirect to chatbot when button is clicked
-    function redirectToChatbot() {
-      window.location.href = 'index.html'; // Change this to your chatbot URL
-    }
+    // Close modals with escape key
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { 
+        document.getElementById("question-modal").style.display = "none";
+        document.getElementById("result-modal").style.display = "none";
+      }
+    });
   </script>
-</head>
-<body>
-  <nav>
-    <div class="nav-links">
-      <a href="#home" onclick="showSection('home-content')">Home</a>
-      <a href="#about" onclick="showSection('about')">About Us</a>
-    </div>
-    <button class="chatbot-btn" onclick="redirectToChatbot()">Mental Support Chatbot</button>
-  </nav>
-
-  <section class="section" id="home-content">
-    <div class="message-box">
-      <h3>😊 You're Not Alone!</h3>
-      <p>Hey there! 💬 It's okay to have tough days. This space is here to support you with kindness, guidance, and the resources you need to feel better. 💖 You matter.</p>
-    </div>
-
-    <div class="floating-boxes">
-      <div class="floating-box" onclick="showQuestions('anxiety')">
-        <h4>Anxiety</h4>
-        <p>Manage feelings of worry and fear with supportive tips.</p>
-      </div>
-      <div class="floating-box" onclick="showQuestions('depression')">
-        <h4>Depression</h4>
-        <p>Coping strategies to help lift feelings of sadness and hopelessness.</p>
-      </div>
-      <div class="floating-box" onclick="showQuestions('ptsd')">
-        <h4>PTSD</h4>
-        <p>Find support for trauma-related experiences and healing.</p>
-      </div>
-      <div class="floating-box" onclick="showQuestions('stress')">
-        <h4>Stress</h4>
-        <p>Discover effective methods to reduce and manage stress.</p>
-      </div>
-    </div>
-
-    <div class="test-help">
-      <h3>What Does This Test Help With?</h3>
-      <p>This test is designed to help you better understand your mental health. By answering the questions, you can gain insights into your symptoms and identify areas where you might need support. Remember, this is not a substitute for professional advice, but it can be a helpful starting point.</p>
-    </div>
-  </section>
-
-  <section class="section about" id="about">
-    <h2>About Our Platform</h2>
-    <p>We provide a supportive space for anyone seeking mental health guidance. Our platform offers helpful resources for anxiety, depression, PTSD, stress, and more.</p>
-    <p>Our mission is to make mental health support accessible to everyone, regardless of their background or circumstances. We believe that everyone deserves compassionate care and understanding.</p>
-  </section>
-
-  <div class="questionnaire" id="anxiety-questions">
-    <h3>Anxiety Symptoms Questionnaire</h3>
-    <div class="question">
-      <p>1. Do you find it difficult to control your worries?</p>
-      <div class="options">
-        <label><input type="radio" name="q1" value="mild"> Mild</label>
-        <label><input type="radio" name="q1" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q1" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>2. Do you experience sudden feelings of panic?</p>
-      <div class="options">
-        <label><input type="radio" name="q2" value="mild"> Mild</label>
-        <label><input type="radio" name="q2" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q2" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>3. Do you avoid situations that make you anxious?</p>
-      <div class="options">
-        <label><input type="radio" name="q3" value="mild"> Mild</label>
-        <label><input type="radio" name="q3" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q3" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>4. How often do you feel restless or on edge?</p>
-      <div class="options">
-        <label><input type="radio" name="q4" value="mild"> Mild</label>
-        <label><input type="radio" name="q4" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q4" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>5. Do you have trouble sleeping due to anxiety?</p>
-      <div class="options">
-        <label><input type="radio" name="q5" value="mild"> Mild</label>
-        <label><input type="radio" name="q5" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q5" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="submit-button">
-      <button onclick="submitTest('anxiety')">Submit</button>
-    </div>
-  </div>
-
-  <div class="questionnaire" id="depression-questions">
-    <h3>Depression Symptoms Questionnaire</h3>
-    <div class="question">
-      <p>1. Have you lost interest in activities you used to enjoy?</p>
-      <div class="options">
-        <label><input type="radio" name="q1" value="mild"> Mild</label>
-        <label><input type="radio" name="q1" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q1" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>2. Do you experience feelings of worthlessness?</p>
-      <div class="options">
-        <label><input type="radio" name="q2" value="mild"> Mild</label>
-        <label><input type="radio" name="q2" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q2" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>3. How often do you feel fatigued or low on energy?</p>
-      <div class="options">
-        <label><input type="radio" name="q3" value="mild"> Mild</label>
-        <label><input type="radio" name="q3" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q3" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>4. Do you have trouble concentrating or making decisions?</p>
-      <div class="options">
-        <label><input type="radio" name="q4" value="mild"> Mild</label>
-        <label><input type="radio" name="q4" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q4" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>5. Do you have thoughts of self-harm or suicide?</p>
-      <div class="options">
-        <label><input type="radio" name="q5" value="mild"> Mild</label>
-        <label><input type="radio" name="q5" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q5" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="submit-button">
-      <button onclick="submitTest('depression')">Submit</button>
-    </div>
-  </div>
-
-  <div class="questionnaire" id="ptsd-questions">
-    <h3>PTSD Symptoms Questionnaire</h3>
-    <div class="question">
-      <p>1. Do you avoid places or things that remind you of trauma?</p>
-      <div class="options">
-        <label><input type="radio" name="q1" value="mild"> Mild</label>
-        <label><input type="radio" name="q1" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q1" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>2. Do you feel easily startled?</p>
-      <div class="options">
-        <label><input type="radio" name="q2" value="mild"> Mild</label>
-        <label><input type="radio" name="q2" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q2" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>3. Do you experience negative thoughts about yourself?</p>
-      <div class="options">
-        <label><input type="radio" name="q3" value="mild"> Mild</label>
-        <label><input type="radio" name="q3" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q3" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>4. Do you have difficulty sleeping due to trauma-related memories?</p>
-      <div class="options">
-        <label><input type="radio" name="q4" value="mild"> Mild</label>
-        <label><input type="radio" name="q4" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q4" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>5. Do you feel emotionally numb or detached from others?</p>
-      <div class="options">
-        <label><input type="radio" name="q5" value="mild"> Mild</label>
-        <label><input type="radio" name="q5" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q5" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="submit-button">
-      <button onclick="submitTest('ptsd')">Submit</button>
-    </div>
-  </div>
-
-  <div class="questionnaire" id="stress-questions">
-    <h3>Stress Symptoms Questionnaire</h3>
-    <div class="question">
-      <p>1. Do you feel irritable or angry when under pressure?</p>
-      <div class="options">
-        <label><input type="radio" name="q1" value="mild"> Mild</label>
-        <label><input type="radio" name="q1" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q1" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>2. Do you experience muscle tension due to stress?</p>
-      <div class="options">
-        <label><input type="radio" name="q2" value="mild"> Mild</label>
-        <label><input type="radio" name="q2" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q2" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>3. Do you have trouble sleeping due to stress?</p>
-      <div class="options">
-        <label><input type="radio" name="q3" value="mild"> Mild</label>
-        <label><input type="radio" name="q3" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q3" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>4. Do you find it hard to relax?</p>
-      <div class="options">
-        <label><input type="radio" name="q4" value="mild"> Mild</label>
-        <label><input type="radio" name="q4" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q4" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="question">
-      <p>5. Do you feel overwhelmed by your responsibilities?</p>
-      <div class="options">
-        <label><input type="radio" name="q5" value="mild"> Mild</label>
-        <label><input type="radio" name="q5" value="moderate"> Moderate</label>
-        <label><input type="radio" name="q5" value="severe"> Severe</label>
-      </div>
-    </div>
-    <div class="submit-button">
-      <button onclick="submitTest('stress')">Submit</button>
-    </div>
-  </div>
-
-  <!-- Modal for displaying test results -->
-  <div id="result-modal" class="modal">
-    <div class="modal-content">
-      <p id="modal-message"></p>
-      <div class="modal-buttons">
-        <button class="ok" onclick="document.getElementById('result-modal').style.display = 'none'">OK</button>
-        <button class="chatbot" onclick="redirectToChatbot()">Mental Support Chatbot</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

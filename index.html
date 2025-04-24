@@ -109,6 +109,46 @@
         .send-btn:hover {
             background: #6a11cb;
         }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #e8e8e8;
+            border-radius: 10px;
+            width: fit-content;
+            margin: 10px 0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #666;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.5s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -121,18 +161,44 @@
     </div>
 
     <script>
+        // Check if coming from assessment
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('fromAssessment')) {
+                let chatBox = document.getElementById("chat-box");
+                let botMessage = document.createElement("div");
+                botMessage.classList.add("message", "bot");
+                botMessage.innerText = "I see you came from an assessment. How can I help you with what you're experiencing?";
+                chatBox.appendChild(botMessage);
+            }
+        };
+
         function sendMessage() {
             let userInput = document.getElementById("user-input").value.trim();
             if (userInput === "") return;
-
+    
             let chatBox = document.getElementById("chat-box");
-
+    
             // Create user message div
             let userMessage = document.createElement("div");
             userMessage.classList.add("message", "user");
             userMessage.innerText = userInput;
             chatBox.appendChild(userMessage);
-
+    
+            // Clear input field
+            document.getElementById("user-input").value = "";
+    
+            // Create typing indicator
+            let typingIndicator = document.createElement("div");
+            typingIndicator.classList.add("typing-indicator");
+            typingIndicator.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            chatBox.appendChild(typingIndicator);
+            chatBox.scrollTop = chatBox.scrollHeight;
+    
             // Send user input to chatbot backend
             fetch("http://127.0.0.1:5000/get_response", {
                 method: "POST",
@@ -141,23 +207,25 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Create bot response div
-                let botMessage = document.createElement("div");
-                botMessage.classList.add("message", "bot");
-                botMessage.innerText = data.response;
-                chatBox.appendChild(botMessage);
-
-                // Auto-scroll chatbox to the latest message
-                chatBox.scrollTop = chatBox.scrollHeight;
+                // Remove typing indicator
+                chatBox.removeChild(typingIndicator);
+    
+                // Create bot response div after delay
+                setTimeout(() => {
+                    let botMessage = document.createElement("div");
+                    botMessage.classList.add("message", "bot");
+                    botMessage.innerText = data.response;
+                    chatBox.appendChild(botMessage);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, data.typing_delay * 1000);
             })
             .catch(error => {
                 console.error("Error:", error);
+                // Remove typing indicator on error
+                chatBox.removeChild(typingIndicator);
             });
-
-            // Clear input field
-            document.getElementById("user-input").value = "";
         }
-
+    
         function handleKeyPress(event) {
             if (event.key === "Enter") {
                 sendMessage();

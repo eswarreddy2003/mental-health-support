@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from sentence_transformers import SentenceTransformer, util
 
+
 # Download stopwords if not already downloaded
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -15,10 +16,10 @@ stop_words = set(stopwords.words('english'))
 hardcoded_responses = {
     "hi": "Hey! How's it going?",
     "hello": "Hey there! How can I help you?",
-    "hey": "Hey! What’s on your mind?",
-    "how are you": "I’m doing great! How about you?",
-    "good morning": "Morning! Hope your day’s going well.",
-    "good evening": "Good evening! How’s your day been?",
+    "hey": "Hey! What's on your mind?",
+    "how are you": "I'm doing great! How about you?",
+    "good morning": "Morning! Hope your day's going well.",
+    "good evening": "Good evening! How's your day been?",
 }
 
 # Contraction mapping for more natural input processing
@@ -66,10 +67,10 @@ def preprocess_text(text):
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
-# app.secret_key = "your_secret_key"  # Required for session tracking
+app.secret_key = "your_secret_key"  # Required for session tracking
 
 # Load the dataset
-file_path ="data.csv"
+file_path = r"E:\Hackday\data.csv"
 df = pd.read_csv(file_path)
 
 # Ensure required columns exist
@@ -114,7 +115,7 @@ def get_response(user_input):
     if top_score > dynamic_threshold:
         bot_response = df.iloc[top_index]['Bot Response']
     else:
-        bot_response = "Hmm, I’m not sure I understand. Could you explain a little more?"
+        bot_response = "Hmm, I'm not sure I understand. Could you explain a little more?"
 
     # Store context for follow-ups if needed
     if bot_response.endswith("?"):  # If the bot response is a question, save it
@@ -123,12 +124,12 @@ def get_response(user_input):
     return bot_response
 
 def handle_follow_up(user_input, last_bot_question):
-    """Provides meaningful follow-ups based on the user’s previous response."""
+    """Provides meaningful follow-ups based on the user's previous response."""
     if "stress" in last_bot_question.lower():
         return "I hear you. Have you tried taking a break or talking to someone about it?"
 
     if "feeling down" in last_bot_question.lower():
-        return "I’m really sorry you’re feeling that way. Do you want to talk about what’s on your mind?"
+        return "I'm really sorry you're feeling that way. Do you want to talk about what's on your mind?"
 
     return "Thanks for sharing that. I'm here to listen."
 
@@ -150,6 +151,3 @@ def chatbot_response():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
